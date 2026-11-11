@@ -1,0 +1,19 @@
+# Python environments
+venv/
+venv-train/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Generated data (regenerate with main.py sim / tools/make_yolo_dataset.py)
+data/
+results/
+runs/
+datasets/
+
+# Model weights (large; share via GitHub Releases or Drive)
+*.pt
+models/*.onnx
+
+# Local overrides
+config/user_settings.json

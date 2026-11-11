@@ -1,0 +1,43 @@
+# Skyborne - ArduCopter parameter REFERENCE for the flight & safety pilot
+# ---------------------------------------------------------------------------
+# NOT a file to load blindly. Check every value in Mission Planner
+# (CONFIG -> Full Parameter List) against YOUR firmware version's documentation
+# (https://ardupilot.org/copter/docs/parameters.html), set them by hand,
+# and TEST each failsafe on the bench (props off) and then in SITL / flight.
+# ---------------------------------------------------------------------------
+
+# --- Link to the Raspberry Pi on TELEM2 (SERIAL2) ---------------------------
+SERIAL2_PROTOCOL   2      # MAVLink2
+SERIAL2_BAUD       921    # 921600 baud (must match config mavlink.baud)
+SR2_POSITION      10      # stream rates (Hz) - the Pi also requests them itself
+SR2_EXTRA1        10      # ATTITUDE
+SR2_EXT_STAT       2
+
+# --- Waypoints (rule: waypoint radius under 50 ft = 15.2 m) -------------------
+WPNAV_RADIUS     300      # cm  (= 3 m ~ 10 ft)
+WPNAV_SPEED      500      # cm/s survey speed (5 m/s) - lap speed set in mission
+
+# --- Radio / ground-station loss (rule: RTL after 15 s lost signal) ---------
+FS_THR_ENABLE      1      # RC failsafe -> RTL
+FS_GCS_ENABLE      1      # GCS (telemetry) failsafe -> RTL
+# FS_GCS_TIMEOUT / RC_FS_TIMEOUT: seconds before the failsafe triggers.
+# Confirm names exist on your firmware and set them so RTL starts <= 15 s.
+# Flight TERMINATION after 90 s requires the Advanced Failsafe (AFS_*) feature,
+# which is NOT in every Copter build. Check AFS_ENABLE exists; if not, ask the
+# organisers what is accepted (e.g. a dedicated RC kill switch + motor emergency stop).
+
+# --- Battery (rule: never below 20 %; we act at 35 % / 25 %) ----------------
+BATT_MONITOR       4      # analog voltage + current (power module)
+BATT_CAPACITY   5000      # mAh
+BATT_LOW_MAH    1750      # 35 % left -> low failsafe
+BATT_CRT_MAH    1250      # 25 % left -> critical failsafe
+BATT_FS_LOW_ACT    2      # RTL
+BATT_FS_CRT_ACT    1      # Land
+# Calibrate BATT_VOLT_MULT / BATT_AMP_PERVLT with a multimeter first!
+
+# --- Geofence (rule: boundary breach forces RTL) ------------------------------
+FENCE_ENABLE       1
+FENCE_TYPE         7      # max altitude + circle + polygon
+FENCE_ACTION       1      # RTL
+FENCE_ALT_MAX     60      # m - adjust to the allowed altitude
+FENCE_RADIUS     300      # m - adjust; draw the polygon fence in Mission Planner

@@ -1,0 +1,19 @@
+[Unit]
+Description=Skyborne onboard mapping and tent detection
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+WorkingDirectory=__APP_DIR__
+ExecStart=__APP_DIR__/venv/bin/python __APP_DIR__/main.py flight
+# root: access to UART, camera and mounting the USB stick on a headless Pi
+User=root
+Restart=always
+RestartSec=3
+# after a reboot mid-flight the program resumes the unfinished session automatically
+Environment=PYTHONUNBUFFERED=1
+Nice=-5
+
+[Install]
+WantedBy=multi-user.target

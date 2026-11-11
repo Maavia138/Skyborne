@@ -1,0 +1,3 @@
+# Raspberry Pi 5 (on top of apt: python3-picamera2 python3-opencv python3-numpy)
+pymavlink>=2.4.40
+onnxruntime>=1.16   # fast CPU inference of the YOLO tent model (ARM64 wheels available)

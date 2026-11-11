@@ -1,0 +1,9 @@
+# Laptop development (Windows / Linux)
+numpy>=1.24
+opencv-python>=4.8
+pymavlink>=2.4.40
+pandas>=2.0
+pillow>=10
+reportlab>=4.0      # builds the PDF guide
+pytest>=7
+onnxruntime>=1.16   # optional: run the YOLO model on the laptop
